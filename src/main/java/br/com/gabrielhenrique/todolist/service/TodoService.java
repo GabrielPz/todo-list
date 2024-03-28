@@ -1,12 +1,12 @@
 package br.com.gabrielhenrique.todolist.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.gabrielhenrique.todolist.dto.TodoDTO;
 import br.com.gabrielhenrique.todolist.entity.Todo;
@@ -21,12 +21,14 @@ public class TodoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<Todo> create(@RequestBody TodoDTO todoDTO){
+    public List<Todo> create(TodoDTO todoDTO){
         Todo todo = modelMapper.map(todoDTO, Todo.class);
         todoRepository.save(todo);
         return list();
     }
-    public List<Todo> update(){
+    public List<Todo> update(TodoDTO todoDTO){
+        Todo todo = modelMapper.map(todoDTO, Todo.class);
+        todoRepository.save(todo);
         return list();
     }
     public List<Todo> list(){
@@ -35,7 +37,8 @@ public class TodoService {
         );
         return todoRepository.findAll(sort);
     }
-    public List<Todo> delete(){
+    public List<Todo> delete(UUID id){
+        todoRepository.deleteById(id);
         return list();
     }
 }
