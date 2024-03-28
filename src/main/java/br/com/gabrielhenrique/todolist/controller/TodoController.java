@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gabrielhenrique.todolist.service.TodoService;
-import jakarta.websocket.server.PathParam;
 import br.com.gabrielhenrique.todolist.dto.TodoDTO;
 import br.com.gabrielhenrique.todolist.entity.Todo;
 
@@ -20,16 +24,24 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
     
+    @PostMapping
     List<Todo> create(@RequestBody TodoDTO todoDTO){
       return todoService.create(todoDTO); 
     };
+
+    @PutMapping
     List<Todo> update(@RequestBody TodoDTO todoDTO){
       return todoService.update(todoDTO); 
     };
+
+    @GetMapping
     List<Todo> list(){
       return todoService.list(); 
     };
-    List<Todo> delete(@PathParam(value = "") UUID id){
+
+
+    @DeleteMapping("{id}")
+    List<Todo> delete(@PathVariable("id") UUID id){
       return todoService.delete(id);
     };
 
