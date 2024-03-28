@@ -2,7 +2,7 @@ spring:
     application:
         name: todo-list
     datasource:
-        url: jdbc:postgresql://localhost:5432/sales_comeia
+        url: jdbc:postgresql://localhost:5432/todo_db
         username: admin
         password: admin
 
