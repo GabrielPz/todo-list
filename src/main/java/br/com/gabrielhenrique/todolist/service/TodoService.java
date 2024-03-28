@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.gabrielhenrique.todolist.dto.TodoDTO;
 import br.com.gabrielhenrique.todolist.entity.Todo;
+import br.com.gabrielhenrique.todolist.exceptions.TaskNotFoundException;
 import br.com.gabrielhenrique.todolist.repository.TodoRepository;
 
 @Service
@@ -26,9 +27,11 @@ public class TodoService {
         todoRepository.save(todo);
         return list();
     }
-    public List<Todo> update(TodoDTO todoDTO){
-        Todo todo = modelMapper.map(todoDTO, Todo.class);
-        todoRepository.save(todo);
+    public List<Todo> update(UUID id, TodoDTO todoDTO){
+        Todo existingTodo = todoRepository.findById(id)
+            .orElseThrow(() -> new TaskNotFoundException());
+        modelMapper.map(todoDTO, existingTodo);
+        todoRepository.save(existingTodo);
         return list();
     }
     public List<Todo> list(){

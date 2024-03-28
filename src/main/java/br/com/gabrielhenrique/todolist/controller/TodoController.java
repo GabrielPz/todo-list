@@ -30,9 +30,9 @@ public class TodoController {
       return todoService.create(todoDTO); 
     };
 
-    @PutMapping
-    List<Todo> update(@RequestBody TodoDTO todoDTO){
-      return todoService.update(todoDTO); 
+    @PutMapping("{id}")
+    List<Todo> update(@PathVariable("id") UUID id, @RequestBody TodoDTO todoDTO){
+      return todoService.update(id, todoDTO); 
     };
 
     @GetMapping
