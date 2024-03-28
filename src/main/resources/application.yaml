@@ -1,0 +1,14 @@
+spring:
+    application:
+        name: todo-list
+    datasource:
+        url: jdbc:postgresql://localhost:5432/sales_comeia
+        username: admin
+        password: admin
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+            
+server:
+    port: 8081
